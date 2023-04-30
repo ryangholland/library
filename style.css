@@ -63,7 +63,7 @@ h6 {
     "sidebar header"
     "sidebar content";
 
-    height: 100%;
+  height: 100%;
 }
 
 .header {
@@ -78,10 +78,29 @@ h6 {
 
   background-color: var(--teal-400);
   color: white;
+
+  padding: 25px;
 }
 
 .content {
   grid-area: content;
 
   background-color: var(--teal-50);
+
+  padding: 25px;
+
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 25px;
+}
+
+.book-card {
+  padding: 10px;
+  border: solid 1px black;
+  height: 200px;
+  max-width: 300px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
