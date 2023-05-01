@@ -7,29 +7,7 @@ const newAuthorInput = document.querySelector(".new-author");
 const newPagesInput = document.querySelector(".new-pages");
 const bookRead = document.querySelector(".read-true");
 
-let myLibrary = [
-  {
-    title: "Test1",
-    author: "Author1",
-    pages: 100,
-    read: true,
-    id: 3529089032,
-  },
-  {
-    title: "Test2",
-    author: "Author2",
-    pages: 200,
-    read: true,
-    id: 32856235,
-  },
-  {
-    title: "Test3",
-    author: "Author3",
-    pages: 300,
-    read: false,
-    id: 5239820,
-  },
-];
+let myLibrary = [];
 
 let bookId = 0;
 
@@ -41,12 +19,18 @@ function Book(title, author, pages, read, id) {
   this.id = id;
 }
 
+Book.prototype.changeReadStatus = function () {
+  this.read = !this.read;
+  console.log(this.read);
+};
+
 function displayBook(book) {
   const bookDiv = document.createElement("div");
   const titleText = document.createElement("h3");
   const authorText = document.createElement("p");
   const pagesText = document.createElement("p");
   const readText = document.createElement("p");
+  const readBtn = document.createElement("button");
   const deleteBtn = document.createElement("button");
 
   bookDiv.classList.add("book-card");
@@ -54,6 +38,8 @@ function displayBook(book) {
   authorText.textContent = book.author;
   pagesText.textContent = book.pages;
   readText.textContent = book.read ? "Read" : "Not Read";
+  readBtn.textContent = "Change Read Status";
+  readBtn.setAttribute("data-readid", book.id);
   deleteBtn.textContent = "Delete";
   deleteBtn.setAttribute("data-id", book.id);
 
@@ -61,6 +47,7 @@ function displayBook(book) {
   bookDiv.append(authorText);
   bookDiv.append(pagesText);
   bookDiv.append(readText);
+  bookDiv.append(readBtn);
   bookDiv.append(deleteBtn);
 
   contentDiv.append(bookDiv);
@@ -104,6 +91,19 @@ newBookForm.addEventListener("submit", (e) => {
 contentDiv.addEventListener("click", (e) => {
   if (e.target.hasAttribute("data-id")) {
     deleteBook(e.target.dataset.id);
+  }
+
+  clearDisplay();
+  displayAllBooks(myLibrary);
+});
+
+contentDiv.addEventListener("click", (e) => {
+  if (e.target.hasAttribute("data-readid")) {
+    myLibrary.forEach((book) => {
+      if (e.target.dataset.readid == book.id) {
+        book.changeReadStatus();
+      }
+    });
   }
 
   clearDisplay();
