@@ -11,18 +11,19 @@ let myLibrary = [];
 
 let bookId = 0;
 
-function Book(title, author, pages, read, id) {
-  this.title = title;
-  this.author = author;
-  this.pages = pages;
-  this.read = read;
-  this.id = id;
-}
+class Book {
+  constructor(title, author, pages, read, id) {
+    this.title = title;
+    this.author = author;
+    this.pages = pages;
+    this.read = read;
+    this.id = id;
+  }
 
-Book.prototype.changeReadStatus = function () {
-  this.read = !this.read;
-  console.log(this.read);
-};
+  changeReadStatus() {
+    this.read = !this.read;
+  }
+}
 
 function displayBook(book) {
   const bookDiv = document.createElement("div");
